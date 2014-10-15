@@ -1,1 +1,1 @@
--e git+git@github.com:rbanffy/appengine-fixture-loader.git
+-e git+git@github.com:rbanffy/appengine-fixture-loader.git#egg=appengine_fixture_loader
