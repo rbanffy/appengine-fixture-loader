@@ -10,7 +10,7 @@ setup(
     author_email='appengine-fixture-loader@autonomic.com.br',
     description='Appengine fixture loader',
     long_description=open('README.md', 'r', 'utf8').read(),
-    keywords=['appengine', 'loader', 'fixture']
+    keywords=['appengine', 'loader', 'fixture'],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
