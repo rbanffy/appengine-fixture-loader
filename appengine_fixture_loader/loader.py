@@ -29,6 +29,7 @@ def _sensible_value(attribute_type, value):
 
     return retval
 
+
 def load_fixture(filename, cls, post_processor=None):
     """
     Loads a file into entities of a given class, run the post_processor on each
@@ -43,7 +44,8 @@ def load_fixture(filename, cls, post_processor=None):
             obj = cls()
             for attribute_name in od:
                 attribute_type = cls.__dict__[attribute_name]
-                attribute_value = _sensible_value(attribute_type, od[attribute_name])
+                attribute_value = _sensible_value(attribute_type,
+                                                  od[attribute_name])
                 obj.__dict__['_values'][attribute_name] = attribute_value
                 if post_processor:
                     post_processor(obj)
