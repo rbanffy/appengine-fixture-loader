@@ -1,9 +1,11 @@
-include AUTHORS.txt
-include LICENSE.txt
-include MANIFEST.in
+include AUTHORS.rst
+include CONTRIBUTING.rst
+include HISTORY.rst
+include LICENSE
 include README.rst
-exclude requirements.txt
-recursive-include docs *
+
 recursive-include tests *
-recursive-exclude docs/_build *
-recursive-exclude tests *.pyc
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+
+recursive-include docs *.rst conf.py Makefile make.bat
