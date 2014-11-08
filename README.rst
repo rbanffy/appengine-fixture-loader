@@ -1,7 +1,7 @@
 appengine-fixture-loader
 ========================
 
-A simple way to load Django-like fixtures into the local development datastore.
+A simple way to load Django-like fixtures into the local development datastore, originally intended to be used by `testable_appengine <https://github.com/rbanffy/testable_appengine>`_.
 
 Let's say you have a model like this::
 
@@ -17,7 +17,7 @@ Let's say you have a model like this::
         sleeptime = ndb.TimeProperty()
         favorite_movies = ndb.JsonProperty()
         processed = ndb.BooleanProperty(default=False)
-        
+
 If you want to load a data file like this::
 
     [
@@ -35,9 +35,9 @@ If you want to load a data file like this::
             "thermostat_set_to": 18.34,
             "userid": 1
         },
-    
-    ... 
-    
+
+    ...
+
         {
             "born": "1980-05-25T00:00:00",
             "first_name": "Bob",
@@ -53,7 +53,7 @@ If you want to load a data file like this::
             "userid": -5
         }
     ]
-    
+
 All you need to do is to::
 
     from appengine_fixture_loader.loader import load_fixture
@@ -61,6 +61,5 @@ All you need to do is to::
 and then::
 
     loaded_data = load_fixture('tests/persons.json', Person)
-    
-In our example, `loaded_data` will contain a list of already persisted Person models you can then manipulate and persist again.
 
+In our example, `loaded_data` will contain a list of already persisted Person models you can then manipulate and persist again.
