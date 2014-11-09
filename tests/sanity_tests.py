@@ -14,3 +14,6 @@ class SanityTest(unittest.TestCase):
             from appengine_fixture_loader.loader import load_fixture
 
         self.assertRaises(ImportError, _dummy)
+
+if __name__ == '__main__':
+    unittest.main()
