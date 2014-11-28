@@ -5,6 +5,8 @@
 
 import unittest
 
+import ipdb; ipdb.set_trace()
+
 class SanityTest(unittest.TestCase):
 
     def testImportFailure(self):
