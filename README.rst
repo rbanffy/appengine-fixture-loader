@@ -127,8 +127,3 @@ and:
                                kinds={'Person': Person, 'Dog': Dog})
 
 will result in a list of Persons and Dogs (in this case, one person and one dog).
-
-Parent-based multi-level loads
-------------------------------
-
-Normally, we would have datastore entities that relate to one another. Google App Engine's dataastore offers two ways to
