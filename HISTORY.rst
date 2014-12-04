@@ -12,3 +12,8 @@ History
 -----------------
 
 * Add support for multi-kind JSON files
+
+0.1.2 (2014-12-4)
+-----------------
+
+* Minor fixes
