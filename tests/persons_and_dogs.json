@@ -1,0 +1,21 @@
+[
+    {
+        "__kind__": "Person",
+        "born": "1968-03-03T00:00:00",
+        "first_name": "John",
+        "last_name": "Doe",
+        "favorite_movies": [
+            "2001",
+            "The Day The Earth Stood Still (1951)"
+        ],
+        "snores": false,
+        "sleeptime": "23:00",
+        "started_school": "1974-02-15",
+        "thermostat_set_to": 18.34,
+        "userid": 1
+    },
+    {
+        "__kind__": "Dog",
+        "name": "Fido"
+    }
+]
