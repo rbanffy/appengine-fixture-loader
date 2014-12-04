@@ -63,6 +63,72 @@ All you need to do is to::
 
 and then::
 
-    loaded_data = load_fixture('tests/persons.json', Person)
+    loaded_data = load_fixture('tests/persons.json', kind = Person)
 
 In our example, `loaded_data` will contain a list of already persisted Person models you can then manipulate and persist again.
+
+Multi-kind loads
+----------------
+
+It's convenient to be able to load multiple kinds of objects from a single file. For those cases, we provide a simple way to identify the kind of object being loaded and to provide a set of models to use when loading the objects.
+
+Consider our original example model:
+
+    class Person(ndb.Model):
+        """Our sample class"""
+        first_name = ndb.StringProperty()
+        last_name = ndb.StringProperty()
+        born = ndb.DateTimeProperty()
+        userid = ndb.IntegerProperty()
+        thermostat_set_to = ndb.FloatProperty()
+        snores = ndb.BooleanProperty()
+        started_school = ndb.DateProperty()
+        sleeptime = ndb.TimeProperty()
+        favorite_movies = ndb.JsonProperty()
+        processed = ndb.BooleanProperty(default=False)
+
+and let's add a second one:
+
+    class Dog(ndb.Model):
+        """Another sample class"""
+        name = ndb.StringProperty()
+
+Now, if we wanted to make a single file load objects of the two kinds, we'd need to use the "__kind__" attribute in the JSON.
+
+    [
+        {
+            "__kind__": "Person",
+            "born": "1968-03-03T00:00:00",
+            "first_name": "John",
+            "last_name": "Doe",
+            "favorite_movies": [
+                "2001",
+                "The Day The Earth Stood Still (1951)"
+            ],
+            "snores": false,
+            "sleeptime": "23:00",
+            "started_school": "1974-02-15",
+            "thermostat_set_to": 18.34,
+            "userid": 1
+        },
+        {
+            "__kind__": "Dog",
+            "name": "Fido"
+        }
+    ]
+
+And, to load the file, we'd have to:
+
+    from appengine_fixture_loader.loader import load_fixture
+
+and:
+
+    loaded_data = load_fixture('tests/persons_and_dogs.json',
+                               kinds={'Person': Person, 'Dog': Dog})
+
+will result in a list of Persons and Dogs (in this case, one person and one dog).
+
+Parent-based multi-level loads
+------------------------------
+
+Normally, we would have datastore entities that relate to one another. Google App Engine's dataastore offers two ways to
