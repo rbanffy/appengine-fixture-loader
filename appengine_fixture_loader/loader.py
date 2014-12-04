@@ -30,7 +30,7 @@ def _sensible_value(attribute_type, value):
     return retval
 
 
-def load_fixture(filename, kind=None, post_processor=None):
+def load_fixture(filename, kind, post_processor=None):
     """
     Loads a file into entities of a given class, run the post_processor on each
     instance before it's saved
@@ -41,9 +41,15 @@ def load_fixture(filename, kind=None, post_processor=None):
 
         def _load(od):
             "Load the attributes defined in od into a new object and saves it"
-            obj = kind()
-            for attribute_name in od:
-                attribute_type = kind.__dict__[attribute_name]
+            if hasattr(kind, 'keys'): # kind is a map
+                objtype = kind[od['__kind__']]
+            else:
+                objtype = kind
+            obj = objtype()
+            for attribute_name in [k for k in od.keys()
+                                   if not k.startswith('__') and
+                                   not k.endswith('__')]:
+                attribute_type = objtype.__dict__[attribute_name]
                 attribute_value = _sensible_value(attribute_type,
                                                   od[attribute_name])
                 obj.__dict__['_values'][attribute_name] = attribute_value
@@ -56,9 +62,6 @@ def load_fixture(filename, kind=None, post_processor=None):
         # instance of it
         return _load
 
-    if hasattr(kind, keys): # Looks like a dict
-        data = json.load(open(filename), object_hook=_loader(kind))
-    else:
-        data = json.load(open(filename), object_hook=_loader(kind))
+    data = json.load(open(filename), object_hook=_loader(kind=kind))
 
     return data

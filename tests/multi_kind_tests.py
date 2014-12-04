@@ -30,9 +30,10 @@ class Person(ndb.Model):
 class Dog(ndb.Model):
     """Another sample class"""
     name = ndb.StringProperty()
+    processed = ndb.BooleanProperty(default=False)
 
 
-class LoaderTest(unittest.TestCase):
+class MultiLoaderTest(unittest.TestCase):
     """Tests if we can load a JSON file"""
     def setUp(self):
         self.testbed = testbed.Testbed()
@@ -40,7 +41,7 @@ class LoaderTest(unittest.TestCase):
         self.testbed.init_datastore_v3_stub()
         self.testbed.init_memcache_stub()
         self.loaded_data = load_fixture('tests/persons_and_dogs.json',
-                                        kinds={'Person': Person, 'Dog': Dog})
+                                        {'Person': Person, 'Dog': Dog})
 
     def tearDown(self):
         self.testbed.deactivate()
@@ -68,7 +69,7 @@ class LoaderTest(unittest.TestCase):
         self.assertEqual(dog.name, 'Fido')
 
 
-class ProcessedLoaderTest(unittest.TestCase):
+class ProcessedMultiLoaderTest(unittest.TestCase):
     """Tests if we can load a JSON file and post-process it"""
     def setUp(self):
 
@@ -80,8 +81,8 @@ class ProcessedLoaderTest(unittest.TestCase):
         self.testbed.init_datastore_v3_stub()
         self.testbed.init_memcache_stub()
         self.loaded_data = load_fixture(
-            'tests/persons.json',
-            Person,
+            'tests/persons_and_dogs.json',
+            {'Person': Person, 'Dog': Dog},
             post_processor=process
         )
 
@@ -89,8 +90,8 @@ class ProcessedLoaderTest(unittest.TestCase):
         self.testbed.deactivate()
 
     def test_loaded_count(self):
-        """Make sure we got 4 objects from the JSON file"""
-        self.assertEqual(len(self.loaded_data), 4)
+        """Make sure we got 2 objects from the JSON file"""
+        self.assertEqual(len(self.loaded_data), 2)
 
     def test_loaded_types(self):
         """Make sure all objects we loaded were processed"""
