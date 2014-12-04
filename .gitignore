@@ -53,5 +53,18 @@ docs/_build/
 # PyBuilder
 target/
 
-.env
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+# Emacs
+*#
+.#*
 *~
+
+# Egg and SDK download caches
+cache
+
+# The virtual environments
+.env
