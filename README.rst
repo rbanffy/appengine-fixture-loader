@@ -3,6 +3,9 @@ appengine-fixture-loader
 
 A simple way to load Django-like fixtures into the local development datastore, originally intended to be used by `testable_appengine <https://github.com/rbanffy/testable_appengine>`_.
 
+Single-level loads
+------------------
+
 Let's say you have a model like this::
 
     class Person(ndb.Model):
