@@ -21,7 +21,7 @@ test_requirements = [
 
 setup(
     name='Appengine-Fixture-Loader',
-    version='0.1.0',
+    version='0.1.1',
     description='Appengine fixture loader',
     long_description=readme + '\n\n' + history,
     author='Ricardo Bánffy',
