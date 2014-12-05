@@ -41,7 +41,7 @@ def load_fixture(filename, kind, post_processor=None):
 
         def _load(od):
             "Load the attributes defined in od into a new object and saves it"
-            if hasattr(kind, 'keys'): # kind is a map
+            if hasattr(kind, 'keys'):  # kind is a map
                 objtype = kind[od['__kind__']]
             else:
                 objtype = kind
