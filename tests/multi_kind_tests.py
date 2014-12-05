@@ -49,10 +49,6 @@ class MultiLoaderTest(unittest.TestCase):
         """Make sure we got 2 objects from the JSON file"""
         self.assertEqual(len(self.loaded_data), 2)
 
-    def test_loaded_types(self):
-        """Make sure we got one Person and one Dog"""
-        self.assertTrue(True)
-
     def test_loaded(self):
         """Check whether the attributes we imported match the JSON contents"""
         # Test if the Person got in
