@@ -3,7 +3,7 @@ appengine-fixture-loader
 
 A simple way to load Django-like fixtures into the local development datastore, originally intended to be used by `testable_appengine <https://github.com/rbanffy/testable_appengine>`_.
 
-Single-level loads
+Single-kind loads
 ------------------
 
 Let's say you have a model like this::
@@ -127,3 +127,92 @@ and::
                                kinds={'Person': Person, 'Dog': Dog})
 
 will result in a list of Persons and Dogs (in this case, one person and one dog).
+
+Multi-kind, multi-level loads
+-----------------------------
+
+Anther common case is having hierarchies of entities that you want to reconstruct for your tests.
+
+Using slightly modified versions of our example classes::
+
+    class Person(ndb.Model):
+        """Our sample class"""
+        first_name = ndb.StringProperty()
+        last_name = ndb.StringProperty()
+        born = ndb.DateTimeProperty()
+        userid = ndb.IntegerProperty()
+        thermostat_set_to = ndb.FloatProperty()
+        snores = ndb.BooleanProperty()
+        started_school = ndb.DateProperty()
+        sleeptime = ndb.TimeProperty()
+        favorite_movies = ndb.JsonProperty()
+        processed = ndb.BooleanProperty(default=False)
+        appropriate_adult = ndb.KeyProperty()
+
+and::
+
+    class Dog(ndb.Model):
+        """Another sample class"""
+        name = ndb.StringProperty()
+        processed = ndb.BooleanProperty(default=False)
+        owner = ndb.KeyProperty()
+
+And using `__children__[attribute_name]__` like meta-attributes, as in::
+
+    [
+        {
+            "__kind__": "Person",
+            "born": "1968-03-03T00:00:00",
+            "first_name": "John",
+            "last_name": "Doe",
+
+            ...
+
+            "__children__appropriate_adult__": [
+                {
+                    "__kind__": "Person",
+                    "born": "1970-04-27T00:00:00",
+
+                    ...
+
+                    "__children__appropriate_adult__": [
+                        {
+                            "__kind__": "Person",
+                            "born": "1980-05-25T00:00:00",
+                            "first_name": "Bob",
+
+                            ...
+
+                            "userid": 3
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "__kind__": "Person",
+            "born": "1999-09-19T00:00:00",
+            "first_name": "Alice",
+
+            ...
+
+            "__children__appropriate_adult__": [
+                {
+                    "__kind__": "Person",
+
+                    ...
+
+                    "__children__owner__": [
+                        {
+                            "__kind__": "Dog",
+                            "name": "Fido"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+
+you can reconstruct entire entity trees for your tests.
+
+Note: As it is now, parent/ancestor relationships are not supported.

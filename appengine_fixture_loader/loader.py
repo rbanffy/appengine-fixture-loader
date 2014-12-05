@@ -41,11 +41,12 @@ def load_fixture(filename, kind, post_processor=None):
 
         def _load(od):
             "Load the attributes defined in od into a new object and saves it"
-            if hasattr(kind, 'keys'): # kind is a map
+            if hasattr(kind, 'keys'):  # kind is a map
                 objtype = kind[od['__kind__']]
             else:
                 objtype = kind
             obj = objtype()
+            # Iterate over the non-special attributes
             for attribute_name in [k for k in od.keys()
                                    if not k.startswith('__') and
                                    not k.endswith('__')]:
@@ -55,11 +56,22 @@ def load_fixture(filename, kind, post_processor=None):
                 obj.__dict__['_values'][attribute_name] = attribute_value
                 if post_processor:
                     post_processor(obj)
+
+            # Saving obj is required to continue with the children
             obj.put()
+
+            # Scan the attributes for children
+            for child_attribute_name in [k for k in od.keys()
+                                         if k.startswith('__children__')]:
+                attribute_name = child_attribute_name.split('__')[-2]
+                for o in od[child_attribute_name]:
+                    o.__dict__['_values'][attribute_name] = obj.key
+                    o.put()
+
             return obj
 
         # Returns a function that takes a class and creates a populated
-        # instance of it
+        # instance of it based on a dictionary
         return _load
 
     data = json.load(open(filename), object_hook=_loader(kind=kind))

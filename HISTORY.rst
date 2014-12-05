@@ -17,3 +17,8 @@ History
 -----------------
 
 * Minor fixes
+
+0.1.3 (2014-12-5)
+-----------------
+
+* Added support for PropertyKey-based child entities
