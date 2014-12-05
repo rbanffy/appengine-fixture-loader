@@ -5,11 +5,8 @@ Tools to automate loading of test fixtures
 import json
 from datetime import datetime, time, date
 
-try:
-    from google.appengine.ext.ndb.model import (DateTimeProperty, DateProperty,
+from google.appengine.ext.ndb.model import (DateTimeProperty, DateProperty,
                                                 TimeProperty)
-except:
-    raise ImportError("This library needs the Google App Engine SDK installed")
 
 
 def _sensible_value(attribute_type, value):
