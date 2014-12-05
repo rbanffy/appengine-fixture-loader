@@ -29,22 +29,22 @@
                 "thermostat_set_to": 23,
                 "userid": 2,
                 "__children__appropriate_adult__": [
-            {
-                "__kind__": "Person",
-                "born": "1980-05-25T00:00:00",
-                "first_name": "Bob",
-                "last_name": "Schneier",
-                "favorite_movies": [
-                    "2001",
-                    "Superman"
-                ],
-                "snores": true,
-                "sleeptime": "22:00",
-                "started_school": "1985-08-01",
-                "thermostat_set_to": 18.34,
-                "userid": 3
-            }
-                    ]
+                    {
+                        "__kind__": "Person",
+                        "born": "1980-05-25T00:00:00",
+                        "first_name": "Bob",
+                        "last_name": "Schneier",
+                        "favorite_movies": [
+                            "2001",
+                            "Superman"
+                        ],
+                        "snores": true,
+                        "sleeptime": "22:00",
+                        "started_school": "1985-08-01",
+                        "thermostat_set_to": 18.34,
+                        "userid": 3
+                    }
+                ]
             }
         ]
     },
@@ -93,10 +93,10 @@
                 "thermostat_set_to": 18.34,
                 "userid": 6,
                 "__children__owner__": [
-                        {
-                            "__kind__": "Dog",
-                            "name": "Fido"
-                        }
+                    {
+                        "__kind__": "Dog",
+                        "name": "Fido"
+                    }
                 ]
             }
         ]
