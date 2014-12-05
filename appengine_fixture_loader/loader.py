@@ -59,6 +59,15 @@ def load_fixture(filename, kind, post_processor=None):
 
             # Saving obj is required to continue with the children
             obj.put()
+
+            # Scan the attributes for children
+            for child_attribute_name in [k for k in od.keys()
+                                         if k.startswith('__children__')]:
+                attribute_name = child_attribute_name.split('__')[-2]
+                for o in od[child_attribute_name]:
+                    o.__dict__['_values'][attribute_name] = obj.key
+                    o.put()
+
             return obj
 
         # Returns a function that takes a class and creates a populated
