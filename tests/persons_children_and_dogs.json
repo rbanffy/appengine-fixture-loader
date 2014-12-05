@@ -91,7 +91,13 @@
                 "sleeptime": "22:30",
                 "started_school": "1985-08-01",
                 "thermostat_set_to": 18.34,
-                "userid": 6
+                "userid": 6,
+                "__children__owner__": [
+                        {
+                            "__kind__": "Dog",
+                            "name": "Fido"
+                        }
+                ]
             }
         ]
     }

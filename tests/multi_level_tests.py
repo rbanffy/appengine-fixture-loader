@@ -86,6 +86,12 @@ class MultiLevelLoaderTest(unittest.TestCase):
         self.assertEqual(
             Person.query(Person.appropriate_adult == alice.key).count(), 2)
 
+    def test_child_of_a_different_type(self):
+        """Tests a child record of a different kind"""
+        charlie = Person.query(Person.first_name == 'Charlie').get()
+        fido = Dog.query(Dog.owner == charlie.key).get()
+        self.assertEqual(fido.name, 'Fido')
+
 
 if __name__ == '__main__':
     unittest.main()
