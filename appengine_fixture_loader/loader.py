@@ -46,6 +46,7 @@ def load_fixture(filename, kind, post_processor=None):
             else:
                 objtype = kind
             obj = objtype()
+            # Iterate over the non-special attributes
             for attribute_name in [k for k in od.keys()
                                    if not k.startswith('__') and
                                    not k.endswith('__')]:
@@ -55,11 +56,13 @@ def load_fixture(filename, kind, post_processor=None):
                 obj.__dict__['_values'][attribute_name] = attribute_value
                 if post_processor:
                     post_processor(obj)
+
+            # Saving obj is required to continue with the children
             obj.put()
             return obj
 
         # Returns a function that takes a class and creates a populated
-        # instance of it
+        # instance of it based on a dictionary
         return _load
 
     data = json.load(open(filename), object_hook=_loader(kind=kind))
