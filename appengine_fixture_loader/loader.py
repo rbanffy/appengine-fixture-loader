@@ -51,8 +51,9 @@ def load_fixture(filename, kind, post_processor=None):
                 attribute_value = _sensible_value(attribute_type,
                                                   od[attribute_name])
                 obj.__dict__['_values'][attribute_name] = attribute_value
-                if post_processor:
-                    post_processor(obj)
+
+            if post_processor:
+                post_processor(obj)
 
             # Saving obj is required to continue with the children
             obj.put()
