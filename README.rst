@@ -216,3 +216,11 @@ And using `__children__[attribute_name]__` like meta-attributes, as in::
 you can reconstruct entire entity trees for your tests.
 
 Note: As it is now, parent/ancestor relationships are not supported.
+
+
+Development
+===========
+
+Clone this repo then run the tests::
+
+    $ PYTHONPATH=path/to/appengine/library python setup.py test
