@@ -221,6 +221,22 @@ Note: As it is now, parent/ancestor relationships are not supported.
 Development
 ===========
 
-Clone this repo then run the tests::
+There are two recommended ways to work on this codebase. If you want to keep
+one and only one App Engine SDK install, you may clone the repository and run
+the tests by::
 
     $ PYTHONPATH=path/to/appengine/library python setup.py test
+
+Alternatively, this project contains code and support files derived from the
+testable_appengine project. Testable_appengine was conceived to make it easier
+to write (and run) tests for Google App Engine applications and to hook your
+application to Travis CI. In essence, it creates a virtualenv and downloads the
+most up-to-date SDK and other support tools into it. To use it, you run
+`make`. Calling `make help` will give you a quick list of available make
+targets::
+
+    $ make venv
+    (lots of output)
+    $ source .env/bin/activate
+    (.env) $ nosetests
+    (hopefully not that much output)
