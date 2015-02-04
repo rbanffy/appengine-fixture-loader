@@ -22,3 +22,9 @@ History
 -----------------
 
 * Added support for PropertyKey-based child entities
+
+0.1.4 (2015-2-4)
+-----------------
+
+* Fixed bug in which post-processor was called on every property change
+* Added section on development to README.rst
