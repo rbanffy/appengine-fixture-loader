@@ -103,5 +103,33 @@ class ProcessedLoaderTest(unittest.TestCase):
         self.assertTrue(all([p.processed for p in self.loaded_data]))
 
 
+class ProcessedLoaderTest(unittest.TestCase):
+    """Tests if the processor is invoked once per loaded entity"""
+    def setUp(self):
+
+        self.counter = 0
+
+        def counted_process(p):
+            p.processed = True
+            self.counter += 1
+
+        self.testbed = testbed.Testbed()
+        self.testbed.activate()
+        self.testbed.init_datastore_v3_stub()
+        self.testbed.init_memcache_stub()
+        self.loaded_data = load_fixture(
+            'tests/persons.json',
+            Person,
+            post_processor=counted_process
+        )
+
+    def tearDown(self):
+        self.testbed.deactivate()
+
+    def test_single_invoke(self):
+        """Make sure processor is invoked once per imported entity"""
+        self.assertEqual(self.counter, 4)
+
+
 if __name__ == '__main__':
     unittest.main()
