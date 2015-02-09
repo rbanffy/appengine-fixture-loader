@@ -33,7 +33,7 @@ class Dog(ndb.Model):
 
 
 class MultiLoaderTest(unittest.TestCase):
-    """Tests if we can load a JSON file"""
+    """Tests if we can load a JSON file with more than one kind"""
     def setUp(self):
         self.testbed = testbed.Testbed()
         self.testbed.activate()

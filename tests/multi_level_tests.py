@@ -35,7 +35,7 @@ class Dog(ndb.Model):
 
 
 class MultiLevelLoaderTest(unittest.TestCase):
-    """Tests if we can load a JSON file"""
+    """Tests if we can load a JSON file with key-based hierarchies"""
     def setUp(self):
         self.testbed = testbed.Testbed()
         self.testbed.activate()
