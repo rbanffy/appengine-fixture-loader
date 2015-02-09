@@ -215,7 +215,49 @@ And using `__children__[attribute_name]__` like meta-attributes, as in::
 
 you can reconstruct entire entity trees for your tests.
 
-Note: As it is now, parent/ancestor relationships are not supported.
+Parent/Ancestor-based relationships with automatic keys
+-------------------------------------------------------
+
+It's also possible to set the `parent` by using the `__children__` attribute.
+
+For our example classes, importing::
+
+    [
+        {
+            "__kind__": "Person",
+            "first_name": "Alice",
+
+            ...
+
+            "__children__": [
+                {
+                    "__kind__": "Person",
+                    "first_name": "Bob",
+                    ...
+
+                    "__children__owner__": [
+                        {
+                            "__kind__": "Dog",
+                            "name": "Fido"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+
+should be equivalent to::
+
+    alice = Person(first_name='Alice')
+    alice.put()
+    bob = Person(first_name='Bob', parent=alice)
+    bob.put()
+    fido = Dog(name='Fido', parent=bob)
+    fido.put()
+
+You can then retrieve fido with::
+
+    fido = Dog.query(ancestor=alice.key).get()
 
 
 Development
