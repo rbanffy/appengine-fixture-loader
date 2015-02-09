@@ -48,8 +48,8 @@ class MultiLevelLoaderTest(unittest.TestCase):
         self.testbed.deactivate()
 
     def test_loaded_count(self):
-        """Make sure we got 2 root objects from the JSON file"""
-        self.assertEqual(len(self.loaded_data), 2)
+        """Make sure we got 7 total objects from the JSON file"""
+        self.assertEqual(len(self.loaded_data), 7)
 
     def test_total_count(self):
         """Make sure we got 6 objects loaded"""
