@@ -59,9 +59,6 @@ class AncestorLoaderTest(unittest.TestCase):
         self.assertEqual(john.thermostat_set_to, 18.34)
         self.assertFalse(john.processed)
 
-    def test_single_children(self):
-        """Tests if a single child was correctly imported"""
-
     def test_multiple_children(self):
         """Tests if multiple children were correctly imported"""
 
