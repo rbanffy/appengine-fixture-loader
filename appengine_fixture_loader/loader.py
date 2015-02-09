@@ -6,7 +6,7 @@ import json
 from datetime import datetime, time, date
 
 from google.appengine.ext.ndb.model import (DateTimeProperty, DateProperty,
-                                                TimeProperty)
+                                            TimeProperty)
 
 
 def _sensible_value(attribute_type, value):
@@ -43,7 +43,7 @@ def load_fixture(filename, kind, post_processor=None):
             objtype = kind[od['__kind__']]
         else:
             objtype = kind
-        obj = objtype(parent = parent)
+        obj = objtype(parent=parent)
 
         # Iterate over the non-special attributes and overlay the presets
         for attribute_name in [k for k in od.keys()
@@ -76,7 +76,7 @@ def load_fixture(filename, kind, post_processor=None):
 
             for child in od[child_attribute_name]:
                 loaded.extend(_load(child, kind, post_processor,
-                                    presets = {attribute_name: obj.key}))
+                                    presets={attribute_name: obj.key}))
 
         return loaded
 
