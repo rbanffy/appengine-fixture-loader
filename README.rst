@@ -93,7 +93,7 @@ and let's add a second one::
         """Another sample class"""
         name = ndb.StringProperty()
 
-Now, if we wanted to make a single file load objects of the two kinds, we'd need to use the "__kind__" attribute in the JSON::
+Now, if we wanted to make a single file load objects of the two kinds, we'd need to use the `__kind__` attribute in the JSON::
 
     [
         {
