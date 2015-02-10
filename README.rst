@@ -3,6 +3,11 @@ appengine-fixture-loader
 
 A simple way to load Django-like fixtures into the local development datastore, originally intended to be used by `testable_appengine <https://github.com/rbanffy/testable_appengine>`_.
 
+Installing
+----------
+
+For the less adventurous, Appengine-Fixture-Loader is available on PyPI at https://pypi.python.org/pypi/Appengine-Fixture-Loader.
+
 Single-kind loads
 ------------------
 
