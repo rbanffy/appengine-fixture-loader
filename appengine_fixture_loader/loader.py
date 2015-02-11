@@ -43,7 +43,12 @@ def load_fixture(filename, kind, post_processor=None):
             objtype = kind[od['__kind__']]
         else:
             objtype = kind
-        obj = objtype(parent=parent)
+
+        obj_id = od.get('__id__')
+        if obj_id is not None:
+            obj = objtype(id=obj_id, parent=parent)
+        else:
+            obj = objtype(parent=parent)
 
         # Iterate over the non-special attributes and overlay the presets
         for attribute_name in [k for k in od.keys()

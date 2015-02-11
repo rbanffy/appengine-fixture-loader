@@ -41,9 +41,6 @@ class AncestorLoaderTest(unittest.TestCase):
     def test_loaded(self):
         """Check whether the attributes we imported match the JSON contents"""
         # Test if John got in
-
-        import ipdb; ipdb.set_trace()
-
         john_key = ndb.Key('Person', 'jdoe')
         john = john_key.get()
         self.assertEqual(john.first_name, 'John')
