@@ -29,8 +29,8 @@ History
 * Fixed bug in which post-processor was called on every property change
 * Added section on development to README.rst
 
-0.1.5 (WIP)
--------------------
+0.1.5 (2015-2-11)
+-----------------
 
-* Added parent/ancestor support
-* (WIP) Added manual key definition
+* Added `__children__` support
+* Added manual key definition
