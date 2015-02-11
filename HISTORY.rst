@@ -33,4 +33,4 @@ History
 -----------------
 
 * Added `__children__` support
-* Added manual key definition
+* Added manual key definition through the `__id__` attribute
