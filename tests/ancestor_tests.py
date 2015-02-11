@@ -24,36 +24,30 @@ class Person(ndb.Model):
     sleeptime = ndb.TimeProperty()
     favorite_movies = ndb.JsonProperty()
     processed = ndb.BooleanProperty(default=False)
-    appropriate_adult = ndb.KeyProperty()
 
 
 class Dog(ndb.Model):
     """Another sample class"""
     name = ndb.StringProperty()
     processed = ndb.BooleanProperty(default=False)
-    owner = ndb.KeyProperty()
 
 
-class MultiLevelLoaderTest(unittest.TestCase):
-    """Tests if we can load a JSON file with key-based hierarchies"""
+class AncestorLoaderTest(unittest.TestCase):
+    """Tests if we can load a JSON file containing __children__"""
     def setUp(self):
         self.testbed = testbed.Testbed()
         self.testbed.activate()
         self.testbed.init_datastore_v3_stub()
         self.testbed.init_memcache_stub()
-        self.loaded_data = load_fixture('tests/persons_children_and_dogs.json',
+        self.loaded_data = load_fixture('tests/ancestors_and_dogs.json',
                                         {'Person': Person, 'Dog': Dog})
 
     def tearDown(self):
         self.testbed.deactivate()
 
     def test_loaded_count(self):
-        """Make sure we got 7 total objects from the JSON file"""
-        self.assertEqual(len(self.loaded_data), 7)
-
-    def test_total_count(self):
-        """Make sure we got 6 objects loaded"""
-        self.assertEqual(Person.query().count(), 6)
+        """Make sure we got 3 total objects from the JSON file"""
+        self.assertEqual(len(self.loaded_data), 3)
 
     def test_loaded(self):
         """Check whether the attributes we imported match the JSON contents"""
@@ -65,32 +59,19 @@ class MultiLevelLoaderTest(unittest.TestCase):
         self.assertEqual(john.thermostat_set_to, 18.34)
         self.assertFalse(john.processed)
 
-    def test_single_children(self):
-        """Tests if a single child was correctly imported"""
+    def test_multiple_children(self):
+        """Tests if multiple children were correctly imported"""
 
         # Get John
         john = Person.query(Person.first_name == 'John').get()
 
-        # Test if Jane got in
-        jane = Person.query(Person.appropriate_adult == john.key).get()
-        self.assertEqual(jane.first_name, 'Jane')
-
-    def test_multiple_children(self):
-        """Tests if multiple children were correctly imported"""
-
-        # Get Alice
-        alice = Person.query(Person.first_name == 'Alice').get()
-        self.assertEqual(alice.last_name, 'Schneier')
-
-        # Get the good and evil twins
-        self.assertEqual(
-            Person.query(Person.appropriate_adult == alice.key).count(), 2)
-
-    def test_child_of_a_different_type(self):
-        """Tests a child record of a different kind"""
-        charlie = Person.query(Person.first_name == 'Charlie').get()
-        fido = Dog.query(Dog.owner == charlie.key).get()
+        # Test whether Fido got in
+        fido = Dog.query(ancestor=john.key).get()
         self.assertEqual(fido.name, 'Fido')
+
+        # Test whether Alice got in
+        jane = Person.query(Person.first_name == 'Jane').get()
+        self.assertEqual(jane.key.parent(), john.key)
 
 
 if __name__ == '__main__':

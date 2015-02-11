@@ -6,7 +6,7 @@ import json
 from datetime import datetime, time, date
 
 from google.appengine.ext.ndb.model import (DateTimeProperty, DateProperty,
-                                                TimeProperty)
+                                            TimeProperty)
 
 
 def _sensible_value(attribute_type, value):
@@ -33,45 +33,64 @@ def load_fixture(filename, kind, post_processor=None):
     instance before it's saved
     """
 
-    def _loader(kind):
-        "Create a loader for this type"
+    def _load(od, kind, post_processor, parent=None, presets={}):
+        """
+        Loads a single dictionary (od) into an object, overlays the values in
+        presets, persists it and
+        calls itself on the objects in __children__* keys
+        """
+        if hasattr(kind, 'keys'):  # kind is a map
+            objtype = kind[od['__kind__']]
+        else:
+            objtype = kind
 
-        def _load(od):
-            "Load the attributes defined in od into a new object and saves it"
-            if hasattr(kind, 'keys'):  # kind is a map
-                objtype = kind[od['__kind__']]
-            else:
-                objtype = kind
-            obj = objtype()
-            # Iterate over the non-special attributes
-            for attribute_name in [k for k in od.keys()
-                                   if not k.startswith('__') and
-                                   not k.endswith('__')]:
-                attribute_type = objtype.__dict__[attribute_name]
-                attribute_value = _sensible_value(attribute_type,
-                                                  od[attribute_name])
-                obj.__dict__['_values'][attribute_name] = attribute_value
+        obj_id = od.get('__id__')
+        if obj_id is not None:
+            obj = objtype(id=obj_id, parent=parent)
+        else:
+            obj = objtype(parent=parent)
 
-            if post_processor:
-                post_processor(obj)
+        # Iterate over the non-special attributes and overlay the presets
+        for attribute_name in [k for k in od.keys()
+                               if not k.startswith('__') and
+                               not k.endswith('__')] + presets.keys():
+            attribute_type = objtype.__dict__[attribute_name]
+            attribute_value = _sensible_value(attribute_type,
+                                              presets.get(
+                                                  attribute_name,
+                                                  od.get(attribute_name)))
+            obj.__dict__['_values'][attribute_name] = attribute_value
 
-            # Saving obj is required to continue with the children
-            obj.put()
+        if post_processor:
+            post_processor(obj)
 
-            # Scan the attributes for children
-            for child_attribute_name in [k for k in od.keys()
-                                         if k.startswith('__children__')]:
-                attribute_name = child_attribute_name.split('__')[-2]
-                for o in od[child_attribute_name]:
-                    o.__dict__['_values'][attribute_name] = obj.key
-                    o.put()
+        # Saving obj is required to continue with the children
+        obj.put()
 
-            return obj
+        loaded = [obj]
 
-        # Returns a function that takes a class and creates a populated
-        # instance of it based on a dictionary
-        return _load
+        # Process ancestor-based __children__
+        for item in od.get('__children__', []):
+            loaded.extend(_load(item, kind, post_processor, parent=obj.key))
 
-    data = json.load(open(filename), object_hook=_loader(kind=kind))
+        # Process other __children__[key]__ items
+        for child_attribute_name in [k for k in od.keys()
+                                     if k.startswith('__children__')
+                                     and k != '__children__']:
+            attribute_name = child_attribute_name.split('__')[-2]
 
-    return data
+            for child in od[child_attribute_name]:
+                loaded.extend(_load(child, kind, post_processor,
+                                    presets={attribute_name: obj.key}))
+
+        return loaded
+
+    tree = json.load(open(filename))
+
+    loaded = []
+
+    # Start with the top-level of the tree
+    for item in tree:
+        loaded.extend(_load(item, kind, post_processor))
+
+    return loaded

@@ -30,6 +30,7 @@ If you want to load a data file like this::
 
     [
         {
+            "__id__": "jdoe",
             "born": "1968-03-03T00:00:00",
             "first_name": "John",
             "last_name": "Doe",
@@ -72,6 +73,8 @@ and then::
 
 In our example, `loaded_data` will contain a list of already persisted Person models you can then manipulate and persist again.
 
+The `__id__` attribute, when defined, will save the object with that given id. In our case, the key to the first object defined will be a `ndb.Key('Person', 'jdoe')`. The key may be defined on an object by object base - where the `__id__` parameter is omitted, an automatic id will be generated - the key to the second one will be something like `ndb.Key('Person', 1)`.
+
 Multi-kind loads
 ----------------
 
@@ -98,7 +101,7 @@ and let's add a second one::
         """Another sample class"""
         name = ndb.StringProperty()
 
-Now, if we wanted to make a single file load objects of the two kinds, we'd need to use the "__kind__" attribute in the JSON::
+Now, if we wanted to make a single file load objects of the two kinds, we'd need to use the `__kind__` attribute in the JSON::
 
     [
         {
@@ -220,7 +223,49 @@ And using `__children__[attribute_name]__` like meta-attributes, as in::
 
 you can reconstruct entire entity trees for your tests.
 
-Note: As it is now, parent/ancestor relationships are not supported.
+Parent/Ancestor-based relationships with automatic keys
+-------------------------------------------------------
+
+It's also possible to set the `parent` by using the `__children__` attribute.
+
+For our example classes, importing::
+
+    [
+        {
+            "__kind__": "Person",
+            "first_name": "Alice",
+
+            ...
+
+            "__children__": [
+                {
+                    "__kind__": "Person",
+                    "first_name": "Bob",
+                    ...
+
+                    "__children__owner__": [
+                        {
+                            "__kind__": "Dog",
+                            "name": "Fido"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+
+should be equivalent to::
+
+    alice = Person(first_name='Alice')
+    alice.put()
+    bob = Person(first_name='Bob', parent=alice)
+    bob.put()
+    fido = Dog(name='Fido', parent=bob)
+    fido.put()
+
+You can then retrieve fido with::
+
+    fido = Dog.query(ancestor=alice.key).get()
 
 
 Development
