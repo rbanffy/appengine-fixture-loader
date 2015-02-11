@@ -30,6 +30,7 @@ If you want to load a data file like this::
 
     [
         {
+            "__id__": "jdoe",
             "born": "1968-03-03T00:00:00",
             "first_name": "John",
             "last_name": "Doe",
@@ -71,6 +72,8 @@ and then::
     loaded_data = load_fixture('tests/persons.json', kind = Person)
 
 In our example, `loaded_data` will contain a list of already persisted Person models you can then manipulate and persist again.
+
+The `__id__` attribute, when defined, will save the object with that given id. In our case, the key to the first object defined will be a `ndb.Key('Person', 'jdoe')`. The key may be defined on an object by object base - where the `__id__` parameter is omitted, an automatic id will be generated - the key to the second one will be something like `ndb.Key('Person', 1)`.
 
 Multi-kind loads
 ----------------
