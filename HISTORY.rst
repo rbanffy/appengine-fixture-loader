@@ -34,3 +34,10 @@ History
 
 * Added `__children__` support
 * Added manual key definition through the `__id__` attribute
+
+0.1.6 (2015-8-30)
+-----------------
+
+* Builds if you don't have `curl` installed
+* Minor documentation improvements
+
