@@ -292,7 +292,16 @@ most up-to-date SDK and other support tools into it. To use it, you run
 targets::
 
     $ make venv
-    (lots of output)
+    Running virtualenv with interpreter /usr/bin/python2
+    New python executable in /export/home/ricardo/projects/appengine-fixture-loader/.env/bin/python2
+    Also creating executable in /export/home/ricardo/projects/appengine-fixture-loader/.env/bin/python
+    (...)
+    ‘/export/home/ricardo/projects/appengine-fixture-loader/.env/bin/run_tests.py’ -> ‘/export/home/ricardo/projects/appengine-fixture-loader/.env/lib/google_appengine/run_tests.py’
+    ‘/export/home/ricardo/projects/appengine-fixture-loader/.env/bin/wrapper_util.py’ -> ‘/export/home/ricardo/projects/appengine-fixture-loader/.env/lib/google_appengine/wrapper_util.py’
     $ source .env/bin/activate
     (.env) $ nosetests
-    (hopefully not that much output)
+    ..............
+    ----------------------------------------------------------------------
+    Ran 14 tests in 2.708s
+
+    OK
