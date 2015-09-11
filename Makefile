@@ -24,4 +24,4 @@ travis: venv package
 
 clean:
 	@rm -f dist/*
-	@rmdir dist
+	@rmdir --ignore-fail-on-non-empty dist
