@@ -6,8 +6,14 @@ A simple way to load Django-like fixtures into the local development datastore, 
 .. image:: https://badge.fury.io/py/appengine-fixture-loader.svg
     :target: https://badge.fury.io/py/appengine-fixture-loader
 
-.. image:: https://api.travis-ci.org/rbanffy/testable_appengine.svg
+.. image:: https://api.travis-ci.org/rbanffy/appengine-fixture-loader.svg
     :target: https://travis-ci.org/rbanffy/appengine-fixture-loader
+
+.. image:: https://img.shields.io/pypi/pyversions/appengine-fixture-loader.svg
+    :target: https://pypi.python.org/pypi/appengine-fixture-loader/
+
+.. image:: https://img.shields.io/pypi/dd/appengine-fixture-loader.svg
+    :target: https://pypi.python.org/pypi/appengine-fixture-loader/
 
 Installing
 ----------
