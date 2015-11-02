@@ -1,3 +1,4 @@
 ipdb
 nose
+coverage
 pyflakes

@@ -20,7 +20,7 @@ upload: clean
 
 # Overriding TravisCI
 travis: venv package
-	@.env/bin/nosetests
+	@.env/bin/nosetests --with-coverage --cover-package appengine-fixture-loader
 
 clean:
 	@rm -f dist/*
