@@ -26,7 +26,7 @@ For the less adventurous, Appengine-Fixture-Loader is available on PyPI at https
 Single-kind loads
 ------------------
 
-Let's say you have a model like this::
+Let's say you have a model like this:
 
 .. code-block:: python
 
@@ -43,7 +43,7 @@ Let's say you have a model like this::
         favorite_movies = ndb.JsonProperty()
         processed = ndb.BooleanProperty(default=False)
 
-If you want to load a data file like this::
+If you want to load a data file like this:
 
 .. code-block:: javascript
 
@@ -82,13 +82,13 @@ If you want to load a data file like this::
         }
     ]
 
-All you need to do is to::
+All you need to do is to:
 
 .. code-block:: python
 
     from appengine_fixture_loader.loader import load_fixture
 
-and then::
+and then:
 
 .. code-block:: python
 
@@ -103,7 +103,7 @@ Multi-kind loads
 
 It's convenient to be able to load multiple kinds of objects from a single file. For those cases, we provide a simple way to identify the kind of object being loaded and to provide a set of models to use when loading the objects.
 
-Consider our original example model::
+Consider our original example model:
 
 .. code-block:: python
 
@@ -120,7 +120,7 @@ Consider our original example model::
         favorite_movies = ndb.JsonProperty()
         processed = ndb.BooleanProperty(default=False)
 
-and let's add a second one::
+and let's add a second one:
 
 .. code-block:: python
 
@@ -128,7 +128,7 @@ and let's add a second one::
         """Another sample class"""
         name = ndb.StringProperty()
 
-Now, if we wanted to make a single file load objects of the two kinds, we'd need to use the `__kind__` attribute in the JSON::
+Now, if we wanted to make a single file load objects of the two kinds, we'd need to use the `__kind__` attribute in the JSON:
 
 .. code-block:: javascript
 
@@ -154,13 +154,13 @@ Now, if we wanted to make a single file load objects of the two kinds, we'd need
         }
     ]
 
-And, to load the file, we'd have to::
+And, to load the file, we'd have to:
 
 .. code-block:: python
 
     from appengine_fixture_loader.loader import load_fixture
 
-and::
+and:
 
 .. code-block:: python
 
@@ -174,7 +174,7 @@ Multi-kind, multi-level loads
 
 Anther common case is having hierarchies of entities that you want to reconstruct for your tests.
 
-Using slightly modified versions of our example classes::
+Using slightly modified versions of our example classes:
 
 .. code-block:: python
 
@@ -192,7 +192,7 @@ Using slightly modified versions of our example classes::
         processed = ndb.BooleanProperty(default=False)
         appropriate_adult = ndb.KeyProperty()
 
-and::
+and:
 
 .. code-block:: python
 
@@ -202,7 +202,7 @@ and::
         processed = ndb.BooleanProperty(default=False)
         owner = ndb.KeyProperty()
 
-And using `__children__[attribute_name]__` like meta-attributes, as in::
+And using `__children__[attribute_name]__` like meta-attributes, as in:
 
 .. code-block:: javascript
 
@@ -295,7 +295,7 @@ For our example classes, importing::
         }
     ]
 
-should be equivalent to::
+should be equivalent to:
 
 .. code-block:: python
 
@@ -306,7 +306,7 @@ should be equivalent to::
     fido = Dog(name='Fido', parent=bob)
     fido.put()
 
-You can then retrieve fido with::
+You can then retrieve fido with:
 
 .. code-block:: python
 
