@@ -5,5 +5,5 @@ install:
   pip install coveralls
 # command to run tests
 script: "make travis"
-after-success:
-  coveralls debug
+after_success:
+  coveralls
