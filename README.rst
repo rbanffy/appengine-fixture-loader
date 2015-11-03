@@ -28,6 +28,8 @@ Single-kind loads
 
 Let's say you have a model like this::
 
+.. code-block:: python
+
     class Person(ndb.Model):
         """Our sample class"""
         first_name = ndb.StringProperty()
@@ -42,6 +44,8 @@ Let's say you have a model like this::
         processed = ndb.BooleanProperty(default=False)
 
 If you want to load a data file like this::
+
+.. code-block:: javascript
 
     [
         {
@@ -80,9 +84,13 @@ If you want to load a data file like this::
 
 All you need to do is to::
 
+.. code-block:: python
+
     from appengine_fixture_loader.loader import load_fixture
 
 and then::
+
+.. code-block:: python
 
     loaded_data = load_fixture('tests/persons.json', kind = Person)
 
@@ -96,6 +104,8 @@ Multi-kind loads
 It's convenient to be able to load multiple kinds of objects from a single file. For those cases, we provide a simple way to identify the kind of object being loaded and to provide a set of models to use when loading the objects.
 
 Consider our original example model::
+
+.. code-block:: python
 
     class Person(ndb.Model):
         """Our sample class"""
@@ -112,11 +122,15 @@ Consider our original example model::
 
 and let's add a second one::
 
+.. code-block:: python
+
     class Dog(ndb.Model):
         """Another sample class"""
         name = ndb.StringProperty()
 
 Now, if we wanted to make a single file load objects of the two kinds, we'd need to use the `__kind__` attribute in the JSON::
+
+.. code-block:: javascript
 
     [
         {
@@ -142,9 +156,13 @@ Now, if we wanted to make a single file load objects of the two kinds, we'd need
 
 And, to load the file, we'd have to::
 
+.. code-block:: python
+
     from appengine_fixture_loader.loader import load_fixture
 
 and::
+
+.. code-block:: python
 
     loaded_data = load_fixture('tests/persons_and_dogs.json',
                                kinds={'Person': Person, 'Dog': Dog})
@@ -157,6 +175,8 @@ Multi-kind, multi-level loads
 Anther common case is having hierarchies of entities that you want to reconstruct for your tests.
 
 Using slightly modified versions of our example classes::
+
+.. code-block:: python
 
     class Person(ndb.Model):
         """Our sample class"""
@@ -174,6 +194,8 @@ Using slightly modified versions of our example classes::
 
 and::
 
+.. code-block:: python
+
     class Dog(ndb.Model):
         """Another sample class"""
         name = ndb.StringProperty()
@@ -181,6 +203,8 @@ and::
         owner = ndb.KeyProperty()
 
 And using `__children__[attribute_name]__` like meta-attributes, as in::
+
+.. code-block:: javascript
 
     [
         {
@@ -245,6 +269,8 @@ It's also possible to set the `parent` by using the `__children__` attribute.
 
 For our example classes, importing::
 
+.. code-block:: javascript
+
     [
         {
             "__kind__": "Person",
@@ -271,6 +297,8 @@ For our example classes, importing::
 
 should be equivalent to::
 
+.. code-block:: python
+
     alice = Person(first_name='Alice')
     alice.put()
     bob = Person(first_name='Bob', parent=alice)
@@ -279,6 +307,8 @@ should be equivalent to::
     fido.put()
 
 You can then retrieve fido with::
+
+.. code-block:: python
 
     fido = Dog.query(ancestor=alice.key).get()
 
