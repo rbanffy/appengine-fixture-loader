@@ -15,6 +15,9 @@ A simple way to load Django-like fixtures into the local development datastore, 
 .. image:: https://img.shields.io/pypi/dm/appengine-fixture-loader.svg
     :target: https://pypi.python.org/pypi/appengine-fixture-loader/
 
+.. image:: https://coveralls.io/repos/rbanffy/appengine-fixture-loader/badge.svg?branch=master&service=github
+    :target: https://coveralls.io/github/rbanffy/appengine-fixture-loader?branch=master
+
 Installing
 ----------
 
