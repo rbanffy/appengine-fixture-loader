@@ -267,7 +267,7 @@ Parent/Ancestor-based relationships with automatic keys
 
 It's also possible to set the `parent` by using the `__children__` attribute.
 
-For our example classes, importing::
+For our example classes, importing:
 
 .. code-block:: javascript
 
