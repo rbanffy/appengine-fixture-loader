@@ -41,3 +41,8 @@ History
 * Builds if you don't have `curl` installed
 * Minor documentation improvements
 
+0.1.7 (2015-11-3)
+-----------------
+
+* Syntax highlighting on the documentation
+* Coverage analysis using Coveralls
