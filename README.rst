@@ -92,7 +92,7 @@ and then:
 
 .. code-block:: python
 
-    loaded_data = load_fixture('tests/persons.json', kind = Person)
+    loaded_data = load_fixture('tests/persons.json', kind=Person)
 
 In our example, `loaded_data` will contain a list of already persisted Person models you can then manipulate and persist again.
 
@@ -165,7 +165,7 @@ and:
 .. code-block:: python
 
     loaded_data = load_fixture('tests/persons_and_dogs.json',
-                               kinds={'Person': Person, 'Dog': Dog})
+                               kind={'Person': Person, 'Dog': Dog})
 
 will result in a list of Persons and Dogs (in this case, one person and one dog).
 
