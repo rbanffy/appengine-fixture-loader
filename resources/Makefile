@@ -7,7 +7,7 @@ VENV?=.env
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
 	@echo "  venv        to build the working virtual environment, and to install requirements for deployment"
-	@echo "  pycodestyle to run pep8 on the src and tests folders"
+	@echo "  pycodestyle to run pycodestyle on the src and tests folders"
 	@echo "  pyflakes    to run pyflakes on the src and tests folders"
 	@echo "  clean_venv  to remove the created virtualenv folder"
 	@echo "  travis	     runs all tests (Travis CI hook)"

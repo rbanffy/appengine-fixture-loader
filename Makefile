@@ -1,6 +1,6 @@
 include resources/Makefile
 
-# Override pep8 target
+# Override pycodestyle target
 pycodestyle:
 	@find $(CURDIR)/appengine_fixture_loader/ -name '*.py' -exec pycodestyle {} \;
 	@find $(CURDIR)/tests/ -name '*.py' -exec pycodestyle {} \;
