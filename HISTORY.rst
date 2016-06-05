@@ -46,3 +46,13 @@ History
 
 * Syntax highlighting on the documentation
 * Coverage analysis using Coveralls
+
+0.1.8 (2016-02-05)
+------------------
+
+* New resources/Makefile
+
+current
+-------
+
+* Replace pep8 with pycodestyle

@@ -6,11 +6,11 @@ VENV?=.env
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
-	@echo "  venv       to build the working virtual environment, and to install requirements for deployment"
-	@echo "  pep8       to run pep8 on the src and tests folders"
-	@echo "  pyflakes   to run pyflakes on the src and tests folders"
-	@echo "  clean_venv to remove the created virtualenv folder"
-	@echo "  travis	    runs all tests (Travis CI hook)"
+	@echo "  venv        to build the working virtual environment, and to install requirements for deployment"
+	@echo "  pycodestyle to run pep8 on the src and tests folders"
+	@echo "  pyflakes    to run pyflakes on the src and tests folders"
+	@echo "  clean_venv  to remove the created virtualenv folder"
+	@echo "  travis	     runs all tests (Travis CI hook)"
 
 # Consciously avoiding "all" target because we may want to use it for building
 # the actual product rather than a sane testing environment
@@ -24,7 +24,7 @@ virtualenv:
 
 # Install all modules that will be used during development.
 requirements:
-	$(CURDIR)/$(VENV)/bin/pip install --download-cache $(CURDIR)/cache -r $(CURDIR)/resources/requirements.txt
+	$(CURDIR)/$(VENV)/bin/pip install --cache-dir $(CURDIR)/cache -r $(CURDIR)/resources/requirements.txt
 
 # Download the current Appengine SDK, unpack it in the virtualenv's
 # lib directory and add it and its patches to the gae.pth file that'll
@@ -41,10 +41,10 @@ appenginesdk: virtualenv directories
 directories:
 	mkdir -p $(CURDIR)/build $(CURDIR)/cache
 
-# A useful target for PEP-8'ing your source tree
-pep8:
-	find $(CURDIR)/src/ -name *.py -exec pep8 {} \;
-	find $(CURDIR)/tests/ -name *.py -exec pep8 {} \;
+# A useful target for running pycodestyle your source tree
+pycodestyle:
+	find $(CURDIR)/src/ -name *.py -exec pycodestyle {} \;
+	find $(CURDIR)/tests/ -name *.py -exec pycodestyle {} \;
 
 # The same for pyflakes
 pyflakes:

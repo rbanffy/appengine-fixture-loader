@@ -2,3 +2,4 @@ ipdb
 nose
 coverage
 pyflakes
+pycodestyle
