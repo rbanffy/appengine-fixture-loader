@@ -11,12 +11,12 @@ pyflakes:
 	@find $(CURDIR)/tests/ -name '*.py' -exec pyflakes {} \;
 
 package:
-	@.env/bin/python setup.py sdist
-	@.env/bin/python setup.py bdist
+	@.env/bin/python2.7 setup.py sdist
+	@.env/bin/python2.7 setup.py bdist
 
 upload: clean
-	@.env/bin/python setup.py sdist upload
-	@.env/bin/python setup.py bdist upload
+	@.env/bin/python2.7 setup.py sdist upload
+	@.env/bin/python2.7 setup.py bdist upload
 
 # Overriding TravisCI
 travis: venv package
