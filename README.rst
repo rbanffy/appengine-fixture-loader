@@ -3,6 +3,9 @@ appengine-fixture-loader
 
 A simple way to load Django-like fixtures into the local development datastore, originally intended to be used by `testable_appengine <https://github.com/rbanffy/testable_appengine>`_.
 
+.. image:: https://img.shields.io/pypi/l/appengine-fixture-loader.svg
+    :target: ./LICENSE
+
 .. image:: https://badge.fury.io/py/appengine-fixture-loader.svg
     :target: https://badge.fury.io/py/appengine-fixture-loader
 
