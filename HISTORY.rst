@@ -57,3 +57,8 @@ History
 
 * Replace pep8 with pycodestyle
 * Update current SDK version detection to latest version
+
+current
+-------
+
+* Simpler package generation and upload
