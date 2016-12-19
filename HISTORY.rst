@@ -52,7 +52,8 @@ History
 
 * New resources/Makefile
 
-current
--------
+0.1.9 (2016-12-19)
+------------------
 
 * Replace pep8 with pycodestyle
+* Update current SDK version detection to latest version
